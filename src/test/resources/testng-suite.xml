@@ -1,0 +1,10 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="GOOGLE-PAGE-TEST" verbose="1" configfailurepolicy="continue" preserve-order="true">
+
+    <test name="google.GooglePageTest" parallel="classes" thread-count="1">
+
+        <packages>
+            <package name="google.*" />
+        </packages>
+    </test>
+</suite>
