@@ -4,6 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.Assert;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
@@ -16,8 +17,19 @@ public class GooglePageTest {
 
     @BeforeTest
     public void annotationBeforeTest() {
-        System.setProperty("webdriver.chrome.driver", "C:\\chromedriver.exe"); // Setting system properties of ChromeDriver
-        driver = new ChromeDriver();
+        // For Docker
+        System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver"); // Setting system properties of ChromeDriver
+        // For local
+//        System.setProperty("webdriver.chrome.driver", "C:\\chromedriver.exe"); // Setting system properties of ChromeDriver
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--headless");
+        options.addArguments("--no-sandbox");
+        options.addArguments("--disable-dev-shm-usage");
+        options.addArguments("--disable-gpu");
+        options.addArguments("--disable-extensions");
+        options.addArguments("--remote-debugging-port=9222");
+
+        driver = new ChromeDriver(options);
     }
 
     // Successful name check in Google logo

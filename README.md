@@ -10,3 +10,11 @@ To start the project you need to:
 
 Two methods will be run (one at a time). Both of them check the name of the Google logo.
 One checks the correct name - successful, the other checks the wrong name - unsuccessful.
+
+--------------------------------------------------------------------------------------------------------------------
+
+Example of using Docker commands
+
+docker build -t selenium-test .
+
+docker run --rm -v /path/to/local/reports:/app/reports selenium-test

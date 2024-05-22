@@ -16,7 +16,19 @@ ext {
 }
 
 dependencies {
-    testCompile group: 'junit', name: 'junit', version: '4.12'
-    compile group: 'org.testng', name: 'testng', version: '7.4.0'
-    compile group: 'org.seleniumhq.selenium', name: 'selenium-chrome-driver', version: '3.141.59'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+    testImplementation 'org.testng:testng:7.4.0'
+    implementation group: 'org.seleniumhq.selenium', name: 'selenium-chrome-driver', version: seleniumVersion
+}
+
+test {
+    useTestNG() {
+        suites 'src/test/resources/testng-suite.xml'
+    }
+
+    reports {
+        html.destination = file("$rootDir/reports/html")
+        junitXml.destination = file("$rootDir/reports/xml")
+    }
 }
