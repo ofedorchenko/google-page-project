@@ -1,4 +1,4 @@
-To start the project you need to:
+**To start the project you need to:**
 
 1. Download the project
 
@@ -13,8 +13,12 @@ One checks the correct name - successful, the other checks the wrong name - unsu
 
 --------------------------------------------------------------------------------------------------------------------
 
-Example of using Docker commands
+**Example of using Docker commands**
 
 docker build -t selenium-test .
 
 docker run --rm -v /path/to/local/reports:/app/reports selenium-test
+
+--------------------------------------------------------------------------------------------------------------------
+
+The result of tests can be viewed locally in **/path/to/local/reports/html/index.html** 
