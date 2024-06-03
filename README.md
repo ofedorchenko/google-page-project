@@ -1,24 +1,23 @@
-**To start the project you need to:**
+# Sample Selenium test running in docker container 
 
-1. Download the project
+The project demonstrates how to run Selenium tests in a docker container.
 
-2. Download chromedriver for the current version of Chrome - https://googlechromelabs.github.io/chrome-for-testing/
+## Run in docker container
 
-3. Extract and put the file "chromedriver.exe" in the root of the "C" drive on your computer
+This way will fit for a CI/CD pipeline.
 
-4. Use testng-suite.xml to run test methods
-
-Two methods will be run (one at a time). Both of them check the name of the Google logo.
-One checks the correct name - successful, the other checks the wrong name - unsuccessful.
-
---------------------------------------------------------------------------------------------------------------------
-
-**Example of using Docker commands**
-
+```
 docker build -t selenium-test .
 
-docker run --rm -v /path/to/local/reports:/app/reports selenium-test
+docker run --rm -v <path-to-local-reports>:/app/reports selenium-test
+```
 
---------------------------------------------------------------------------------------------------------------------
+The result of tests can be viewed in `<path-to-local-reports>/html/index.html`
 
-The result of tests can be viewed locally in **/path/to/local/reports/html/index.html** 
+## How to run the tests locally
+
+This way will fit if you need to see how tests run.
+
+1. Download chromedriver for the current version of Chrome - https://googlechromelabs.github.io/chrome-for-testing/
+2. Extract and put the file "chromedriver.exe" somewhere on your computer
+3. Configure TestNG test run with Environment variable `CHROMEDRIVER_PATH=<path-to-chromedriver.exe>` and use `testng-suite.xml` to run test methods.

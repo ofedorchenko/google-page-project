@@ -5,10 +5,11 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.testng.Assert;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
+
+import static org.testng.Assert.assertEquals;
 
 public class GooglePageTest {
 
@@ -17,10 +18,12 @@ public class GooglePageTest {
 
     @BeforeTest
     public void annotationBeforeTest() {
+        String chromedriverPath = System.getenv("CHROMEDRIVER_PATH");
+        System.out.println("CHROMEDRIVER_PATH=" + chromedriverPath);
+
         // For Docker
-        System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver"); // Setting system properties of ChromeDriver
+        System.setProperty("webdriver.chrome.driver", chromedriverPath); // Setting system properties of ChromeDriver
         // For local
-//        System.setProperty("webdriver.chrome.driver", "C:\\chromedriver.exe"); // Setting system properties of ChromeDriver
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--headless");
         options.addArguments("--no-sandbox");
@@ -38,7 +41,7 @@ public class GooglePageTest {
         driver.get(urlGoogle);
         // Checks if there is a "Search Google" button on the page
         WebElement logoText = driver.findElement(By.xpath("//div[@class = 'k1zIA rSk4se']/img"));
-        Assert.assertEquals(logoText.getAttribute("alt"), "Google");
+        assertEquals(logoText.getAttribute("alt"), "Google");
     }
 
     // Unsuccessful name check in Google logo
@@ -47,7 +50,7 @@ public class GooglePageTest {
         driver.get(urlGoogle);
         // Checks if there is a "Search Google" button on the page
         WebElement logoText = driver.findElement(By.xpath("//div[@class = 'k1zIA rSk4se']/img"));
-        Assert.assertEquals(logoText.getAttribute("alt"), "Gooooogle");
+        assertEquals(logoText.getAttribute("alt"), "Gooooogle");
     }
 
     @AfterTest

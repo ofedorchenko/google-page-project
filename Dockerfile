@@ -1,12 +1,6 @@
 # Use a base image with JDK and Gradle
 FROM gradle:7.6.1-jdk17 as builder
 
-# Set the working directory inside the container
-WORKDIR /app
-
-# Copy the project files to the container
-COPY . .
-
 # Install dependencies and Google Chrome version 125
 RUN apt-get update && apt-get install -y wget unzip gnupg curl \
     && curl -sSL https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - \
@@ -22,12 +16,17 @@ RUN wget -O /tmp/chromedriver.zip https://storage.googleapis.com/chrome-for-test
     && chmod +x /usr/local/bin/chromedriver \
     && rm -rf /tmp/chromedriver.zip /tmp/chromedriver-linux64
 
-# Set environment variables for Chrome and Chromedriver
-ENV CHROME_BIN=/usr/bin/google-chrome
-ENV CHROMEDRIVER=/usr/local/bin/chromedriver
+# Set environment variables for Chromedriver
+ENV CHROMEDRIVER_PATH=/usr/local/bin/chromedriver
+
+# Set the working directory inside the container
+WORKDIR /app
 
 # Create reports directory
 RUN mkdir -p /app/reports
+
+# Copy the project files to the container
+COPY . .
 
 # Run tests and generate report
 CMD ["gradle", "clean", "test"]
